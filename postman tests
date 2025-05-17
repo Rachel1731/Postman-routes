@@ -1,0 +1,67 @@
+//CREATE
+app.post("/cart", async (req, res) => {
+  const createdCart = await Cart.create(req.body);
+  res.json(createdCart);
+});
+
+{
+  "_id": "60d5f4e4f3a0b1b1b1b1b1b1",
+  "userId": "60d5f4e4f3a0b1b1b1b1b1b1",
+  "items": [
+    {
+      "productId": "60d5f4e4f3a0b1b1b1b1b1b1",
+      "quantity": 2,
+      "price": 100,
+      "total": 200
+    }
+  ],
+  "subTotal": 200,
+  "createdAt": "2025-05-17T17:35:18.000Z",
+  "updatedAt": "2025-05-17T17:35:18.000Z",
+  "__v": 0
+}
+
+//GET
+app.get("/cart", async (req, res) => {
+  // test
+  const foundCart = await Cart.find();
+  res.json(foundCart);
+});
+
+//Fixed syntax 
+pm.test("Status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Response status code is 200", function () {
+  pm.response.to.have.status(200);
+});
+
+pm.test("Response body is not null", function () {
+  pm.expect(pm.response.text()).to.not.equal(null);
+});
+
+pm.test("Response content type is text/xml", function () {
+  pm.expect(pm.response.headers.get("Content-Type")).to.equal("text/xml");
+});
+
+//DELETE /cart
+app.delete("/cart/:cartId", async (req, res) => {
+  //test
+  const deletedCart = await Cart.findByIdAndDelete(req.params.petId);
+  res.json(deletedCart);
+});
+
+// UPDATE - PUT - /cart/:cartId
+app.put("/:cartId", async (req, res) => {
+  const updatedCart = await Cart.findByIdAndUpdate(
+    req.params.CartId,
+    req.body,
+    {
+      new: true,
+    }
+  );
+});
+
+
+
